@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Shop Homepage - Start Bootstrap Template</title>
+	<!-- Favicon-->
+	<link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+	<!-- Bootstrap icons-->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+	<!-- Core theme CSS (includes Bootstrap)-->
+	<link href="/prodotto/js/css/shopper.css" rel="stylesheet" />
+	<link rel="stylesheet" href="/prodotto/js/css/soloNav.css">
+</head>
+<body >
+<nav class="navbar  navbar-expand-lg navbar-dark bg-dark ">
+	<div class="container px-5">
+		<a class="navbar-brand" th:href="@{/}">MELODI</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNavDropdown">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" th:href="@{/}">Home</a></li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Catalogo
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+						<a class="dropdown-item" th:href="@{prodotti}">Canzoni</a>
+						<a class="dropdown-item" th:href="@{artisti}">Artisti</a>
+					</div>
+				</li>
+			</ul>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item" sec:authorize="isAnonymous()" ><a class="nav-link" th:href="@{register}">Sign Up</a></li>
+					<li class="nav-item" sec:authorize="isAnonymous()" ><a class="nav-link" th:href="@{login}">Log In</a></li>
+				</ul>
+				<ul class="nav navbar-nav ">
+					<li class="nav-item" sec:authorize="isAuthenticated()"><span class="text-light" sec:authentication="principal.username">User</span></li>
+				</ul>
+				<ul class="nav navbar-nav ">
+					<li class="nav-item" sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Log out</a> </li>
+				</ul>
+
+			</div>
+		</div>
+	</div>
+</nav>
+
+<header class="bg-dark py-5">
+	<div class="container px-4 px-lg-5 my-5">
+		<div class="text-center text-white">
+			<h1 class="display-4 fw-bolder">Cerca tra i nostri artisti</h1>
+		</div>
+	</div>
+</header>
+<br>
+<br>
+<div class="container" th:if="${artisti==null||artisti.isEmpty()}">
+	<h2 >Non ci sono artisti </h2></div>
+<div class="container px-4 px-lg-5 mt-5">
+	<div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+		<div class="col mb-5"  th:each="artista :${artisti}">
+			<div class="card h-100">
+				<!-- Fornitore details-->
+				<div class="card-body p-4">
+					<div class="text-center">
+						<!-- Fornitore name-->
+						<h2 class="fw-bolder" th:text="${artista.nome}" ></h2>
+						<!-- Product price-->
+						<h5><span th:text="${artista.cognome}"></span></h5>
+						<p th:text="${artista.nomeDarte}" >Suresh Dasari is a founder and technical lead developer in tutlane.</p>
+					</div>
+				</div>
+				<!-- Product actions-->
+				<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+					<div class="text-center"><a class="btn btn-outline-dark mt-auto" th:href="@{/artista/{id}(id=${artista.id})}">Vedi artista</a></div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
+
